@@ -1,0 +1,38 @@
+{
+  "name": "score-analysis-app",
+  "description": "춘천고등학교 성적분석ON — 교사를 위한 성적 데이터 분석 데스크톱 애플리케이션",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:windows:portable": "tauri build --no-bundle",
+    "tauri:windows:installer": "tauri build --bundles nsis",
+    "clean:rust": "cargo clean --manifest-path src-tauri/Cargo.toml",
+    "test": "npm run test:rust && npm run test:ts",
+    "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml",
+    "test:ts": "vitest run"
+  },
+  "dependencies": {
+    "@tailwindcss/oxide-win32-x64-msvc": "^4.3.0",
+    "@tauri-apps/api": "^2.11.0",
+    "@tauri-apps/plugin-dialog": "^2.7.1",
+    "@tauri-apps/plugin-opener": "^2.5.4",
+    "exceljs": "^4.4.0",
+    "lucide-vue-next": "^1.0.0",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.35",
+    "vue-router": "5.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "@tauri-apps/cli": "^2.11.2",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "tailwindcss": "^4.3.0",
+    "vite": "^6.4.2",
+    "vitest": "^4.1.7"
+  }
+}

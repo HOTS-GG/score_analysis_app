@@ -1,0 +1,1 @@
+[[null, null, null, null, null, null, null, null, null, null], ["", "학번", "이름", "국어", "수학", "영어", "한국사", "통사", "통과", "합계"], [null, 10101, "김서준", 72, 61, 80, 40, 31.5, 47, "=SUM(D3:I3)"], [null, 10102, "이하윤", 59, 34, 67, 32, 42, 32, "=SUM(D4:I4)"], [null, 10103, "박지호", "미응시", null, null, null, null, null, null]]

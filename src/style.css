@@ -1,0 +1,357 @@
+@import "tailwindcss";
+
+/* ================================================================
+   기본 레이아웃 — 브라우저 기본 스크롤 제거
+   ================================================================ */
+html, body, #app {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ================================================================
+   CSS 변수 — 다크 모드 기본값 (Apple iOS Dark Mode 기준)
+   ================================================================ */
+:root {
+  /* ── 강조 색상 (JS로 덮어씀) — iOS Blue 기본 ────────── */
+  --accent-rgb:        0, 122, 255;
+  --accent-hex:        #007aff;
+  --accent-hex-hover:  #0a84ff;
+  --accent-text:       #409cff;
+  --accent-bright:     #64b5f6;
+
+  /* ── 배경 — iOS Dark (순수 블랙 계열) ───────────────── */
+  --bg-0:              #000000;   /* 최상위 배경 (시스템 배경) */
+  --bg-1:              #1c1c1e;   /* 사이드바 / 패널 */
+  --bg-2:              #2c2c2e;   /* 카드 / 입력창 / 모달 */
+  --bg-hover:          #3a3a3c;   /* 호버 */
+  --bg-hover-bright:   #48484a;  /* 밝은 호버 */
+
+  /* ── 테두리 — iOS separator ──────────────────────────── */
+  --bd-1:   #38383a;   /* 기본 구분선 */
+  --bd-2:   #48484a;   /* 보조 구분선 */
+
+  /* ── 텍스트 — iOS label 시스템 ──────────────────────── */
+  --tx-1:   #ffffff;              /* Primary label */
+  --tx-2:   #ebebf5;              /* Secondary label — 밝고 선명하게 */
+  --tx-3:   #aeaeb2;              /* Tertiary label — iOS #8e8e93보다 밝게 */
+  --tx-4:   #7c7c80;              /* Quaternary / placeholder */
+  --tx-5:   #48484a;              /* Disabled */
+
+  /* ── 오버레이 / 그림자 ────────────────────────────────── */
+  --overlay: rgba(0, 0, 0, 0.6);
+  --shadow:  rgba(0, 0, 0, 0.5);
+
+  /* ── 스크롤바 ─────────────────────────────────────────── */
+  --sb-track:       #1c1c1e;
+  --sb-thumb:       #3a3a3c;
+  --sb-thumb-hover: #48484a;
+
+  /* ── 위험(red) ────────────────────────────────────────── */
+  --clr-red-rgb:        255, 59, 48;
+  --clr-red-text:       #ff453a;
+  --clr-red-text-light: #ff6961;
+  --clr-red-text-pale:  #ffb3ae;
+  --clr-red-solid:      #ff3b30;
+  --clr-red-bg:         rgba(255, 59, 48, 0.12);
+  --clr-red-border:     rgba(255, 59, 48, 0.30);
+  --clr-red-bg-hover:   rgba(255, 59, 48, 0.20);
+  --clr-red-deep-bg:    rgba(255, 59, 48, 0.08);
+  --clr-red-deep-border:rgba(255, 59, 48, 0.15);
+
+  /* ── 경고(amber) — iOS yellow ────────────────────────── */
+  --clr-warn-rgb:        255, 214, 10;
+  --clr-warn-text:       #ffd60a;
+  --clr-warn-text-light: #ffe066;
+  --clr-warn-bg:         rgba(255, 214, 10, 0.10);
+  --clr-warn-border:     rgba(255, 214, 10, 0.28);
+
+  /* ── 성공(green) — iOS green ─────────────────────────── */
+  --clr-green-rgb:    48, 209, 88;
+  --clr-green-text:   #30d158;
+  --clr-green-bg:     rgba(48, 209, 88, 0.10);
+  --clr-green-border: rgba(48, 209, 88, 0.28);
+  --clr-green-bright:     #34c759;
+  --clr-green-bright-rgb: 52, 199, 89;
+
+  /* ── 보라(purple) — iOS purple ───────────────────────── */
+  --clr-purple-rgb:    191, 90, 242;
+  --clr-purple-text:   #bf5af2;
+  --clr-purple-bg:     rgba(191, 90, 242, 0.10);
+  --clr-purple-border: rgba(191, 90, 242, 0.28);
+
+  /* ── 메모/노트 — iOS orange ──────────────────────────── */
+  --clr-note-text:     #ff9f0a;
+  --clr-note-alt:      #ff6b00;
+
+  /* ── 셀 특수 배경 ────────────────────────────────────── */
+  --clr-red-cell-bg:   rgba(255, 59, 48, 0.15);
+  --clr-warn-cell-bg:  rgba(255, 214, 10, 0.10);
+
+  /* ── 파일 상태 배지 ──────────────────────────────────── */
+  --clr-badge-green-bg: rgba(48, 209, 88, 0.10);
+  --clr-badge-green-bd: rgba(48, 209, 88, 0.28);
+  --clr-badge-warn-bg:  rgba(255, 214, 10, 0.10);
+  --clr-badge-warn-bd:  rgba(255, 214, 10, 0.28);
+  --clr-badge-red-bg:   rgba(255, 59, 48, 0.10);
+  --clr-badge-red-bd:   rgba(255, 59, 48, 0.28);
+
+  /* ── RGB 보조값 ──────────────────────────────────────── */
+  --bd-1-rgb:          56, 56, 58;
+  --bg-hover-rgb:      58, 58, 60;
+
+  /* ── 기존 이름 호환 유지 ─────────────────────────────── */
+  --clr-bg-base:     var(--bg-0);
+  --clr-bg-surface:  var(--bg-2);
+  --clr-bg-raised:   var(--bg-hover-bright);
+  --clr-border:      var(--bd-1);
+  --clr-blue:        var(--accent-hex);
+  --clr-blue-hover:  var(--accent-hex-hover);
+  --clr-text-main:   var(--tx-1);
+  --clr-text-sub:    var(--tx-2);
+  --clr-text-hint:   var(--tx-4);
+  --clr-text-subtle: var(--tx-4);
+
+  /* ── 개요 스텝 카드 고정 색상 (다크) ────────────────── */
+  --step1-c: #60a5fa; --step1-bg: rgba(59,130,246,0.18);  --step1-bd: rgba(59,130,246,0.40);
+  --step2-c: #c084fc; --step2-bg: rgba(147,51,234,0.18);  --step2-bd: rgba(147,51,234,0.40);
+  --step3-c: #2dd4bf; --step3-bg: rgba(13,148,136,0.18);  --step3-bd: rgba(13,148,136,0.40);
+  --step4-c: #fbbf24; --step4-bg: rgba(217,119,6,0.18);   --step4-bd: rgba(217,119,6,0.40);
+  --step5-c: #4ade80; --step5-bg: rgba(22,163,74,0.18);   --step5-bd: rgba(22,163,74,0.40);
+}
+
+/* ================================================================
+   라이트 모드 오버라이드 (Apple iOS Light Mode)
+   ================================================================ */
+[data-mode="light"] {
+  /* ── 배경 — iOS Light (흰색 계열) ───────────────────── */
+  --bg-0:              #f2f2f7;   /* iOS systemGroupedBackground */
+  --bg-1:              #ffffff;   /* iOS secondarySystemGroupedBackground */
+  --bg-2:              #ffffff;   /* iOS tertiarySystemGroupedBackground */
+  --bg-hover:          #e5e5ea;
+  --bg-hover-bright:   #d1d1d6;
+
+  /* ── 테두리 ──────────────────────────────────────────── */
+  --bd-1:   #c6c6c8;
+  --bd-2:   #d1d1d6;
+
+  /* ── 텍스트 — iOS label 라이트 ──────────────────────── */
+  --tx-1:   #000000;
+  --tx-2:   #3c3c43;              /* Secondary — 충분히 어둡고 선명하게 */
+  --tx-3:   #636366;              /* Tertiary — iOS #8e8e93보다 약간 더 어둡게 */
+  --tx-4:   #8e8e93;
+  --tx-5:   #c7c7cc;
+
+  --overlay: rgba(0, 0, 0, 0.3);
+  --shadow:  rgba(0, 0, 0, 0.10);
+
+  --sb-track:       #f2f2f7;
+  --sb-thumb:       #c6c6c8;
+  --sb-thumb-hover: #8e8e93;
+
+  /* 라이트 강조색 텍스트는 accent 자체 사용 */
+  --accent-rgb:        0, 122, 255;
+  --accent-hex:        #007aff;
+  --accent-hex-hover:  #0071e3;
+  --accent-text:       #007aff;
+  --accent-bright:     #0071e3;
+
+  /* ── 위험(red) — iOS Light ───────────────────────────── */
+  --clr-red-rgb:        255, 59, 48;
+  --clr-red-text:       #ff3b30;
+  --clr-red-text-light: #ff6961;
+  --clr-red-text-pale:  #ffb3ae;
+  --clr-red-solid:      #ff3b30;
+  --clr-red-bg:         rgba(255, 59, 48, 0.08);
+  --clr-red-border:     rgba(255, 59, 48, 0.25);
+  --clr-red-bg-hover:   rgba(255, 59, 48, 0.14);
+  --clr-red-deep-bg:    rgba(255, 59, 48, 0.06);
+  --clr-red-deep-border:rgba(255, 59, 48, 0.12);
+
+  /* ── 경고(amber) — iOS Light ─────────────────────────── */
+  --clr-warn-rgb:        255, 149, 0;
+  --clr-warn-text:       #ff9500;
+  --clr-warn-text-light: #ffb340;
+  --clr-warn-bg:         rgba(255, 149, 0, 0.08);
+  --clr-warn-border:     rgba(255, 149, 0, 0.25);
+
+  /* ── 성공(green) — iOS Light ─────────────────────────── */
+  --clr-green-rgb:    52, 199, 89;
+  --clr-green-text:   #34c759;
+  --clr-green-bg:     rgba(52, 199, 89, 0.08);
+  --clr-green-border: rgba(52, 199, 89, 0.25);
+  --clr-green-bright:     #28a745;
+  --clr-green-bright-rgb: 40, 167, 69;
+
+  /* ── 보라(purple) — iOS Light ────────────────────────── */
+  --clr-purple-rgb:    175, 82, 222;
+  --clr-purple-text:   #af52de;
+  --clr-purple-bg:     rgba(175, 82, 222, 0.08);
+  --clr-purple-border: rgba(175, 82, 222, 0.25);
+
+  --clr-note-text:     #ff9500;
+  --clr-note-alt:      #ff6b00;
+
+  --clr-red-cell-bg:   rgba(255, 59, 48, 0.07);
+  --clr-warn-cell-bg:  rgba(255, 149, 0, 0.07);
+
+  --clr-badge-green-bg: rgba(52, 199, 89, 0.08);
+  --clr-badge-green-bd: rgba(52, 199, 89, 0.25);
+  --clr-badge-warn-bg:  rgba(255, 149, 0, 0.08);
+  --clr-badge-warn-bd:  rgba(255, 149, 0, 0.25);
+  --clr-badge-red-bg:   rgba(255, 59, 48, 0.08);
+  --clr-badge-red-bd:   rgba(255, 59, 48, 0.25);
+
+  --bd-1-rgb:          198, 198, 200;
+  --bg-hover-rgb:      209, 209, 214;
+
+  /* ── 개요 스텝 카드 고정 색상 (라이트) ──────────────── */
+  --step1-c: #3b82f6; --step1-bg: rgba(59,130,246,0.07);  --step1-bd: rgba(59,130,246,0.25);
+  --step2-c: #9333ea; --step2-bg: rgba(147,51,234,0.07);  --step2-bd: rgba(147,51,234,0.25);
+  --step3-c: #0d9488; --step3-bg: rgba(13,148,136,0.07);  --step3-bd: rgba(13,148,136,0.25);
+  --step4-c: #d97706; --step4-bg: rgba(217,119,6,0.07);   --step4-bd: rgba(217,119,6,0.25);
+  --step5-c: #16a34a; --step5-bg: rgba(22,163,74,0.07);   --step5-bd: rgba(22,163,74,0.25);
+}
+
+/* ================================================================
+   스크롤바 — iOS 스타일 (얇고 둥글게)
+   ================================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background-color: transparent; }
+::-webkit-scrollbar-thumb {
+  background-color: var(--sb-thumb);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--sb-thumb-hover); }
+::-webkit-scrollbar-corner { background-color: transparent; }
+
+/* ================================================================
+   모달 공통
+   ================================================================ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  background-color: var(--overlay);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.modal-container {
+  background-color: var(--bg-2);
+  border: 1px solid var(--bd-1);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px var(--shadow);
+  display: flex; flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+}
+
+.modal-hdr {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--bd-1);
+  flex-shrink: 0;
+}
+
+.modal-ftr {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid var(--bd-1);
+  flex-shrink: 0;
+}
+
+.modal-hdr--top { align-items: flex-start; }
+
+.modal-title {
+  font-size: 17px; font-weight: 600;
+  color: var(--tx-1); margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.modal-close {
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer;
+  border-radius: 50%;
+  color: var(--tx-4);
+  transition: background-color 0.15s, color 0.15s;
+}
+.modal-close:hover { background-color: var(--bg-hover); color: var(--tx-3); }
+
+/* ================================================================
+   공통 버튼 — iOS 스타일
+   ================================================================ */
+.btn-primary {
+  padding: 10px 22px; border: none; border-radius: 10px;
+  background-color: var(--accent-hex); color: #fff;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: opacity 0.15s, background-color 0.15s;
+  letter-spacing: -0.1px;
+}
+.btn-primary:hover:not(:disabled) { background-color: var(--accent-hex-hover); }
+.btn-primary:active:not(:disabled) { opacity: 0.8; }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-secondary {
+  padding: 10px 18px; border-radius: 10px;
+  border: 1px solid var(--bd-1); background: none;
+  color: var(--tx-2); font-size: 15px; cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn-secondary:hover { background-color: var(--bg-hover); color: var(--tx-1); }
+
+.btn-danger {
+  padding: 8px 14px; border-radius: 10px;
+  border: 1px solid var(--clr-red-border);
+  background-color: var(--clr-red-bg);
+  color: var(--clr-red-text); font-size: 15px; cursor: pointer;
+  transition: background-color 0.15s;
+  font-weight: 500;
+}
+.btn-danger:hover { background-color: var(--clr-red-bg-hover); }
+
+/* ================================================================
+   공통 입력 — iOS 스타일
+   ================================================================ */
+.ui-input {
+  width: 100%; padding: 10px 14px; border-radius: 10px;
+  border: 1px solid var(--bd-1); background-color: var(--bg-1);
+  color: var(--tx-1); font-size: 15px; box-sizing: border-box;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.ui-input:focus {
+  outline: none;
+  border-color: var(--accent-hex);
+  background-color: var(--bg-2);
+}
+.ui-input::placeholder { color: var(--tx-4); }
+
+/* ================================================================
+   메시지
+   ================================================================ */
+.msg-error {
+  padding: 10px 14px; border-radius: 10px;
+  color: var(--clr-red-text); background-color: var(--clr-red-bg);
+  border: 1px solid var(--clr-red-border);
+  font-size: 14px;
+}
+.msg-success {
+  padding: 10px 14px; border-radius: 10px;
+  color: var(--clr-green-text); background-color: var(--clr-green-bg);
+  border: 1px solid var(--clr-green-border);
+  font-size: 14px;
+}
+
+/* ================================================================
+   상태 박스
+   ================================================================ */
+.state-box {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  padding: 48px; border: 1px solid var(--bd-1); border-radius: 16px;
+}
+.state-box--error { border-color: var(--clr-red-border); }
+
+.modal-enter-from, .modal-leave-to { opacity: 0; transform: scale(0.96); }
+.modal-enter-active, .modal-leave-active { transition: all 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
